@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { FavoriteContext } from '../../contextComponents/FavoriteContext';
 import ActivityCardDetails from "../ActivityCardDetails";
 import FavoriteButton from "./searchComponents/FavoriteButton"
 import StyledActivityContainerForFavorites from "../styledComponents/StyledActivityContainerForFavorites"

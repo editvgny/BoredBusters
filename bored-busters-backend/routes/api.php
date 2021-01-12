@@ -20,4 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::Resource('/register', 'App\Http\Controllers\UserController');
 Route::get('/favorite/{userId}', [App\Http\Controllers\FavoriteController::class, 'getFavorites']);
+Route::get('/get-activity/{activityTitle}', [App\Http\Controllers\FavoriteController::class, 'getActivityByTitle']);
+Route::delete('/favorite/{activityId}', [\App\Http\Controllers\FavoriteController::class, 'deleteActivityById']);
+Route::post('/favorite', [\App\Http\Controllers\FavoriteController::class, 'addActivityById']);
 
