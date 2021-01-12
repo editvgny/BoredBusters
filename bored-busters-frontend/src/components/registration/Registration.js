@@ -16,18 +16,27 @@ function Registration() {
 
     const registerUser = (event) => {
         event.preventDefault()
-        const password = checkMatchingPassword()
 
         const userData = {
             username: document.getElementById("username").value,
             email: document.getElementById("email").value,
-            password1: password ? document.getElementById("password1").value : "",
-            password2: password ? document.getElementById("password2").value : "",
+            password1: document.getElementById("password1").value,
+            password2:  document.getElementById("password2").value,
         }
 
+        console.log(userData);
+
         axios.post(`http://127.0.0.1:8000/api/register`, userData)
-            .then(window.location.replace("/"))
-            .catch(error => console.log(error))
+            .then((response) => {
+                console.log(response.data)
+                if (response.data.status !== 201) {
+                    console.log('error')
+                } else {
+                    console.log('OKÉÉS')
+                }
+            })
+            // .catch(error => console.log(error))
+        // window.location.replace("/")
     }
 
     return (

@@ -24,7 +24,7 @@ class UserController extends Controller
         $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
-            return response(['success' => false, 'error' => $validator->messages()], 400);
+            return response(['status' => 200, 'success' => false, 'error' => $validator->messages()], 200);
         }
         $username = $request->username;
         $email    = $request->email;
