@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::Resource('/register', 'App\Http\Controllers\UserController');
+Route::get('/favorite/{userId}', [App\Http\Controllers\FavoriteController::class, 'getFavorites']);
 

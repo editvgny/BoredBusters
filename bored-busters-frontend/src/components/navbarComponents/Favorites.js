@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FavoriteContext } from '../../contextComponents/FavoriteContext';
 import ActivityCardDetails from "../ActivityCardDetails";
 import FavoriteButton from "./searchComponents/FavoriteButton"
@@ -8,6 +8,7 @@ import StyledInputContainer from "../styledComponents/StyledInputContainer";
 import StyledGetButton from "../styledComponents/StyledGetButton";
 import StyledFavoriteContainer from "../styledComponents/StyledFavoriteContainer";
 import StyledFavoriteSearchContainer from "../styledComponents/StyledFavoriteSearchContainer";
+import axios from "axios";
 
 
 import SliderBar from "../slidebarComponents/Sliderbar";
@@ -15,10 +16,17 @@ import { SlideValueContext } from "../../contextComponents/SlideValueContext";
 
 
 export default function Favorites() {
+  const [favorites, setFavorites] = useState([]);
+  //const [favorites, setFavorites] = useContext(FavoriteContext);
 
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/favorite/1")
+        .then((response) => {
+          setFavorites(response.data)
+        })
+  }, [])
 
   const [contextValues] = useContext(SlideValueContext);
-  const [favorites, setFavorites] = useContext(FavoriteContext);
 
   const types = ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]
   const [activityType, setType] = useState("");
