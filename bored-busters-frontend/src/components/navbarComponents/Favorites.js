@@ -165,7 +165,7 @@ export default function Favorites() {
         <StyledActivityContainerForFavorites key={fav.key}>
           <React.Fragment>
             <FavoriteButton activity={fav}
-              setFavorites={setFavorites}
+              //setFavorites={setFavorites}
               setCurrentPageOriginals={setCurrentPageOriginals}
               currentPageOriginals={currentPageOriginals}
               originalCurrentPost={originalCurrentPost} />

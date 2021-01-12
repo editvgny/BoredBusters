@@ -11,7 +11,7 @@ export default function FavoriteButton(props) {
         .then((response) => {
           setActivity(response.data)
         })
-  }, [])
+  }, [props.activity])
 
   const updateFavorites = () => {
 
@@ -36,7 +36,7 @@ export default function FavoriteButton(props) {
 
   return (
     <StyledFavButton style={{ marginRight: "auto", marginLeft: "auto", minHeight: "50px" }} onClick={updateFavorites}>
-      {(activity.id) ?
+      {(activity.id || props.activity.id) ?
         <div style={{ color: "red" }}><FaHeart style={{ height: "40px", width: "40px" }} /></div>
         : <div><FaHeart style={{ height: "40px", width: "40px" }} /></div>}
     </StyledFavButton>
