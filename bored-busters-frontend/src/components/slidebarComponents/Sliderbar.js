@@ -4,7 +4,7 @@ import { SliderRail, Handle, Track, Tick } from "./SlidebarElements";
 import { SlideValueContext } from "../../contextComponents/SlideValueContext";
 
 const SearchByCost = () => {
-  const [contextValues, setContextValues] = useContext(SlideValueContext);
+  const setContextValues = useContext(SlideValueContext)[1];
   const sliderStyle = {
     position: "relative",
     width: "65%",

@@ -147,38 +147,40 @@ export default function Favorites() {
       {searchedFavorites.length !== 0 ? (
         <div className="pagination-container">
           {pageNumbers.map(number => (
-            <div onClick={() => paginate(number)} href="#" className="page-link">
+            <div key={number} onClick={() => paginate(number)} href="#" className="page-link">
               {number}
             </div>
           ))}
         </div >
       ) : ("")}
 
-
-
       {!isFiltered ? originalCurrentPost.map((fav) => (
-        <StyledActivityContainerForFavorites>
+        <StyledActivityContainerForFavorites key={fav.key}>
           <React.Fragment>
             <FavoriteButton activity={fav}
               setFavorites={setFavorites}
               setCurrentPageOriginals={setCurrentPageOriginals}
-              currentPageOriginals={currentPageOriginals} />
+              currentPageOriginals={currentPageOriginals}
+              originalCurrentPost={originalCurrentPost} />
             <ActivityCardDetails activity={fav} />
           </React.Fragment>
         </StyledActivityContainerForFavorites>)
-      ) : ("")}
+      ) : ("")
+      }
 
-      {!isFiltered ? (
-        <div className="pagination-container">
-          {originalPageNumbers.map(number => (
-            <div onClick={() => paginateOriginals(number)} href="#" className="page-link">
-              {number}
-            </div>
-          ))}
-        </div >
-      ) : ("")}
+      {
+        !isFiltered ? (
+          <div className="pagination-container">
+            {originalPageNumbers.map(number => (
+              <div key={number} onClick={() => paginateOriginals(number)} href="#" className="page-link">
+                {number}
+              </div>
+            ))}
+          </div >
+        ) : ("")
+      }
 
-    </StyledFavoriteContainer>
+    </StyledFavoriteContainer >
   ) : (
       <StyledActivityContainerForFavorites>
         <div style={{ margin: "auto" }}>There are no favorites yet! <br /><br />

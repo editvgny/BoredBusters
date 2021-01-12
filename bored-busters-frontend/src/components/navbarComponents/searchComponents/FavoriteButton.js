@@ -17,11 +17,12 @@ export default function FavoriteButton(props) {
       if (!isCollected(prevCollection)) {
         return [...prevCollection, props.activity];
       }
-      if (props.setCurrentPageOriginals && props.currentPageOriginals > 1 && props.currentPageOriginals.length === 0) {
-        props.setCurrentPageOriginals(props.currentPageOriginals - 1);
-      }
       return removeItem(prevCollection);
     });
+
+    if (props.setCurrentPageOriginals && props.currentPageOriginals > 1 && props.originalCurrentPost.length === 1) {
+      props.setCurrentPageOriginals(props.currentPageOriginals - 1);
+    }
 
     if (props.setSearchedFavorites) {
       props.setSearchedFavorites((prevCollection) => {
