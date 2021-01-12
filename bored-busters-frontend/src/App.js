@@ -12,6 +12,7 @@ import SearchByCost from "./components/navbarComponents/searchComponents/SearchB
 import SearchByType from './components/navbarComponents/searchComponents/SearchByType';
 import SearchByParticipants from "./components/navbarComponents/searchComponents/SearchByParticipants";
 import { ThemeProvider } from "./contextComponents/ThemeContext";
+import Registration from "./components/registration/Registration";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Navbar />
             <div className="container">
               <Route exact path="/" component={Home}></Route>
+              <Route path="/registration" component={Registration}></Route>
               <Route path="/random" component={RandomActivity}></Route>
               <Route path="/type" component={SearchByType}></Route>
               <SlideValueContextProvider>

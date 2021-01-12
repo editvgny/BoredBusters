@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 export default function Header() {
     return (
         <StyledNavbar>
+            <Link to="/registration">Registration</Link>
+            {''}|{''}
             <Link to="/random">Random</Link>
             {''}|{''}
             <Link to="/type">Type</Link>
