@@ -19,7 +19,7 @@ class CreateFavoriteActivitiesTable extends Migration
             $table->string('activity');
             $table->string('type');
             $table->integer('participants');
-            $table->integer('price');
+            $table->float('price');
             $table->boolean('completed');
             $table->string('link')->nullable();
             $table->timestamps();
