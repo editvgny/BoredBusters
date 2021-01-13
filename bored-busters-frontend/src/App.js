@@ -13,6 +13,7 @@ import SearchByType from './components/navbarComponents/searchComponents/SearchB
 import SearchByParticipants from "./components/navbarComponents/searchComponents/SearchByParticipants";
 import { ThemeProvider } from "./contextComponents/ThemeContext";
 import Registration from "./components/registration/Registration";
+import Login from "./components/login/Login";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <div className="container">
               <Route exact path="/" component={Home}></Route>
               <Route path="/registration" component={Registration}></Route>
+              <Route path="/login" component={Login}></Route>
               <Route path="/random" component={RandomActivity}></Route>
               <Route path="/type" component={SearchByType}></Route>
               <SlideValueContextProvider>

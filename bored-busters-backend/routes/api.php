@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::Resource('/register', 'App\Http\Controllers\UserController');
-Route::get('/favorite/{userId}', [App\Http\Controllers\FavoriteController::class, 'getFavorites']);
+Route::post('/login', [UserController::class, 'login']);
+Route::get('/favorite/{userId}', [App\Http\Controllers\FavoriteController::class, 'getFavorites'])->middleware('auth');
 Route::get('/get-activity/{activityTitle}', [App\Http\Controllers\FavoriteController::class, 'getActivityByTitle']);
-Route::delete('/favorite/{activityId}', [\App\Http\Controllers\FavoriteController::class, 'deleteActivityById']);
-Route::post('/favorite', [\App\Http\Controllers\FavoriteController::class, 'addActivityById']);
+Route::delete('/favorite/{activityId}', [FavoriteController::class, 'deleteActivityById']);
+Route::post('/favorite', [FavoriteController::class, 'addActivityById']);
 

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,5 +31,26 @@ class UserController extends Controller
         $email    = $request->email;
         $password = $request->password1;
         return response(['status' => 201, User::create(['name' => $username, 'email' => $email, 'password' => Hash::make($password)])], 201);
+    }
+
+    public function login(Request $request) {
+        $rules = [
+            'email'    => 'required',
+            'password' => 'required'
+        ];
+
+        $input     = $request->only('email','password');
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'success' => false, 'error' => $validator->messages()], 401);
+        }
+        if (Auth::attempt($input)) {
+            $user = User::where('email', '=', $request->email)->first();
+            Auth::login($user);
+            return response(['status' => 200, 'success' => true], 200);
+        } else {
+            return response()->json(['status' => 401, 'success' => false, 'error' => "Invalid username or password!"], 401);
+        }
     }
 }
