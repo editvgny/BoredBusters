@@ -35,7 +35,7 @@ function Registration() {
                     console.log('OKÉÉS')
                 }
             })
-            // .catch(error => console.log(error))
+            .catch(error => console.log(error.response.data))
         // window.location.replace("/")
     }
 
