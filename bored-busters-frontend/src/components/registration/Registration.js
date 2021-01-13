@@ -3,17 +3,6 @@ import axios from 'axios';
 
 function Registration() {
 
-    const checkMatchingPassword = () => {
-        const password1 = document.getElementById("password1").value;
-        const password2 = document.getElementById("password2").value;
-
-        if (password1 === password2) {
-            return true;
-        } else {
-            document.getElementById("error").innerHTML = 'Mismatched passwords!';
-        }
-    }
-
     const registerUser = (event) => {
         event.preventDefault()
 
@@ -28,15 +17,16 @@ function Registration() {
 
         axios.post(`http://127.0.0.1:8000/api/register`, userData)
             .then((response) => {
-                console.log(response.data)
-                if (response.data.status !== 201) {
-                    console.log('error')
-                } else {
-                    console.log('OKÉÉS')
-                }
+                window.location.replace("/")
             })
-            .catch(error => console.log(error.response.data))
-        // window.location.replace("/")
+            .catch(error => {
+               let errorDiv = document.getElementById("error");
+               if (error.response.data.error.email[0] === "The email has already been taken.") {
+                   errorDiv.innerHTML = error.response.data.error.email;
+               } else {
+                   errorDiv.innerHTML = "All fields must be filled and the passwords need to be matched!"
+               }
+            })
     }
 
     return (
