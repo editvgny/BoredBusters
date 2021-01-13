@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ActivityCardDetails from "../ActivityCardDetails";
 import FavoriteButton from "./searchComponents/FavoriteButton"
 import StyledActivityContainerForFavorites from "../styledComponents/StyledActivityContainerForFavorites"
 import axios from "axios";
 import FavoriteSearch from "./searchComponents/FavoriteSearch";
+import CompletedButton from "./searchComponents/CompletedButton";
 
 
 export default function Favorites() {
@@ -31,7 +32,14 @@ export default function Favorites() {
         setVisibleFavorites(favorites.slice(actualPageNumber * postsPerPage - postsPerPage, actualPageNumber * postsPerPage))
     }
 
-
+    const setCompleted = (activityId, newValue) => {
+        favorites.filter((fav) => {
+            if (fav.id === activityId) {
+                fav.completed = newValue;
+                // setFavorites([])
+            }
+        })
+    }
 
 
     if (favorites.length === 0) {
@@ -55,12 +63,15 @@ export default function Favorites() {
             {visibleFavorites.map((favorite, index) => (
                 <StyledActivityContainerForFavorites key={index}>
                     <React.Fragment>
-                        <FavoriteButton activity={favorite}
-                                        favorites={favorites}
-                                        setFavorites={setFavorites}
-                                        visibleFavorites={visibleFavorites}
-                                        refreshVisibleFavorites={refreshVisibleFavorites}
-                                        actualPageNumber={actualPageNumber}/>
+                        <div className="button-holder">
+                            <FavoriteButton activity={favorite}
+                                            favorites={favorites}
+                                            setFavorites={setFavorites}
+                                            visibleFavorites={visibleFavorites}
+                                            refreshVisibleFavorites={refreshVisibleFavorites}
+                                            actualPageNumber={actualPageNumber}/>
+                            <CompletedButton activity={favorite} setCompleted={setCompleted}/>
+                        </div>
                         <ActivityCardDetails activity={favorite}/>
                     </React.Fragment>
                 </StyledActivityContainerForFavorites>)

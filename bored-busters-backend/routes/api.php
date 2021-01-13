@@ -23,4 +23,5 @@ Route::get('/favorite/{userId}', [App\Http\Controllers\FavoriteController::class
 Route::get('/get-activity/{activityTitle}', [App\Http\Controllers\FavoriteController::class, 'getActivityByTitle']);
 Route::delete('/favorite/{activityId}', [\App\Http\Controllers\FavoriteController::class, 'deleteActivityById']);
 Route::post('/favorite', [\App\Http\Controllers\FavoriteController::class, 'addActivityById']);
+Route::put('/complete', [\App\Http\Controllers\FavoriteController::class, 'completeById']);
 
