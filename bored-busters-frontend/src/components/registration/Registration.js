@@ -21,7 +21,7 @@ function Registration() {
             })
             .catch(error => {
                let errorDiv = document.getElementById("error");
-               if (error.response.data.error.email[0] === "The email has already been taken.") {
+               if (error.response.data.error.email && error.response.data.error.email[0] === "The email has already been taken.") {
                    errorDiv.innerHTML = error.response.data.error.email;
                } else {
                    errorDiv.innerHTML = "All fields must be filled and the passwords need to be matched!"
