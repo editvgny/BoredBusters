@@ -47,7 +47,7 @@ export default function SearchByParticipants() {
 
       {participantsActivity.activity ? (
         <React.Fragment>
-          <FavoriteButton activity={participantsActivity} />
+          <FavoriteButton activity={participantsActivity} setActivity={setparticipantsActivity}/>
           <ActivityCardDetails activity={participantsActivity} />
         </React.Fragment>
       ) : (

@@ -68,7 +68,7 @@ export default function SearchByCost() {
       <StyledActivityContainer style={{ width: "800px" }}>
         {activityData.activity ? (
           <React.Fragment>
-            <FavoriteButton activity={activityData} />
+            <FavoriteButton activity={activityData} setActivity={setActivityData}/>
             <ActivityCardDetails activity={activityData} />
           </React.Fragment>
         ) : (
