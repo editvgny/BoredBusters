@@ -23,8 +23,10 @@ export default function FavoriteButton(props) {
             axios.delete(`http://127.0.0.1:8000/api/favorite/${activity.id}`)
                 .then((response) => {
                         setActivity([])
-                        props.setActivity([])
 
+                    if (props.setActivity) {
+                        props.setActivity([])
+                    }
                     if (props.setFavorites) {
                         axios.get("http://127.0.0.1:8000/api/favorite/1")
                             .then((response) => {props.setFavorites(response.data)})
