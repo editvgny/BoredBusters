@@ -20,7 +20,6 @@ export default function Favorites() {
                 setFavorites(response.data)
             })
         setVisibleFavorites(favorites.slice(actualPageNumber * postsPerPage - postsPerPage, actualPageNumber * postsPerPage))
-
     }, [favorites.length, actualPageNumber])
 
     for (let i = 1; i <= Math.ceil(favorites.length / postsPerPage); i++) {
@@ -32,6 +31,9 @@ export default function Favorites() {
         setVisibleFavorites(favorites.slice(actualPageNumber * postsPerPage - postsPerPage, actualPageNumber * postsPerPage))
     }
 
+
+
+
     if (favorites.length === 0) {
         return (
             <StyledActivityContainerForFavorites>
@@ -40,42 +42,42 @@ export default function Favorites() {
                 </div>
             </StyledActivityContainerForFavorites>
         )
-    } else {
-        return (
-            <React.Fragment>
-                {/* ********** */}
-                {/* Search box */}
-                <FavoriteSearch visibleFavorites={visibleFavorites}/>
-
-                {/* ************ */}
-                {/* Result cards */}
-                {visibleFavorites.map((favorite, index) => (
-                    <StyledActivityContainerForFavorites key={index}>
-                        <React.Fragment>
-                            <FavoriteButton activity={favorite}
-                                            favorites={favorites}
-                                            setFavorites={setFavorites}
-                                            visibleFavorites={visibleFavorites}
-                                            refreshVisibleFavorites={refreshVisibleFavorites}
-                                            actualPageNumber={actualPageNumber}/>
-                            <ActivityCardDetails activity={favorite}/>
-                        </React.Fragment>
-                    </StyledActivityContainerForFavorites>)
-                )}
-
-                {/* ********** */}
-                {/* Pagination */}
-                {favorites.length !== 0 ? (
-                    <div className="pagination-container">
-                        {pageNumbers.map(pageNumber => (
-                            <div key={pageNumber} onClick={() => refreshVisibleFavorites(pageNumber)}
-                                 className="page-link">
-                                {pageNumber}
-                            </div>
-                        ))}
-                    </div>
-                ) : ("")}
-            </React.Fragment>
-        )
     }
+
+    return (
+        <React.Fragment>
+            {/* ********** */}
+            {/* Search box */}
+            <FavoriteSearch visibleFavorites={visibleFavorites}/>
+
+            {/* ************ */}
+            {/* Result cards */}
+            {visibleFavorites.map((favorite, index) => (
+                <StyledActivityContainerForFavorites key={index}>
+                    <React.Fragment>
+                        <FavoriteButton activity={favorite}
+                                        favorites={favorites}
+                                        setFavorites={setFavorites}
+                                        visibleFavorites={visibleFavorites}
+                                        refreshVisibleFavorites={refreshVisibleFavorites}
+                                        actualPageNumber={actualPageNumber}/>
+                        <ActivityCardDetails activity={favorite}/>
+                    </React.Fragment>
+                </StyledActivityContainerForFavorites>)
+            )}
+
+            {/* ********** */}
+            {/* Pagination */}
+            {favorites.length !== 0 ? (
+                <div className="pagination-container">
+                    {pageNumbers.map(pageNumber => (
+                        <div key={pageNumber} onClick={() => refreshVisibleFavorites(pageNumber)}
+                             className="page-link">
+                            {pageNumber}
+                        </div>
+                    ))}
+                </div>
+            ) : ("")}
+        </React.Fragment>
+    )
 }
