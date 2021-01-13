@@ -27,8 +27,14 @@ export default function FavoriteButton(props) {
                         .then((response) => {
                             props.setFavorites(response.data)
                         })
+                    // This section checks if visibleFavorites is empty or not. And if it is it changes
+                    // the actualPageNumber and the visibleFavorites too.
+                    // -1 is because async calls. When visibleFavorites has one element and we get here it will surely
+                    // delete it and it's length will be 0
+                    if (props.visibleFavorites.length-1 === 0) {
+                        props.refreshVisibleFavorites(props.actualPageNumber-1)
                     }
-                )
+                })
         } else {
             axios.post('http://127.0.0.1:8000/api/favorite', activity)
                 .then((response) => {
