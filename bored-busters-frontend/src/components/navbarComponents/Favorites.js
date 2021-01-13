@@ -36,7 +36,10 @@ export default function Favorites() {
         favorites.filter((fav) => {
             if (fav.id === activityId) {
                 fav.completed = newValue;
-                // setFavorites([])
+                axios.get("http://127.0.0.1:8000/api/favorite/1")
+                    .then((response) => {
+                        setFavorites(response.data)
+                    })
             }
         })
     }
