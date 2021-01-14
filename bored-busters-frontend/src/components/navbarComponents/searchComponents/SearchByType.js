@@ -39,7 +39,7 @@ export default function SearchByType() {
       {activityByType.length !== 0 && (
         activityByType.activity ? (
           <React.Fragment>
-            <FavoriteButton activity={activityByType} />
+            <FavoriteButton activity={activityByType} setActivity={setActivityByType}/>
             <ActivityCardDetails activity={activityByType} />
           </React.Fragment>
         ) : (<div>No activity was found!</div>)

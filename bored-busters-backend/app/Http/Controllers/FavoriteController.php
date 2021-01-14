@@ -31,4 +31,10 @@ class FavoriteController extends Controller {
            "completed" => 0
         ]);
     }
+
+    public function completeById(Request $request)
+    {
+        return FavoriteActivity::where(["id" => $request->activityId])
+            ->update(["completed" => $request->value]);
+    }
 }

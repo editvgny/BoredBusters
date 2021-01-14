@@ -6,7 +6,6 @@ import ActivityCardDetails from "../ActivityCardDetails";
 import FavoriteButton from "./searchComponents/FavoriteButton"
 
 
-
 export default function RandomActivity() {
   const [randomActivity, setrandomActivity] = useState([]);
 
@@ -16,7 +15,6 @@ export default function RandomActivity() {
       .then((response) => setrandomActivity(response.data));
   }
 
-
   return randomActivity.length !== 0 ? (
     <StyledActivityContainer>
 
@@ -25,7 +23,7 @@ export default function RandomActivity() {
         Give me a random activity!
       </StyledGetButton>
 
-        <FavoriteButton activity={randomActivity} />
+      <FavoriteButton activity={randomActivity} setActivity={setrandomActivity}/>
       <ActivityCardDetails activity={randomActivity} />
 
     </StyledActivityContainer>

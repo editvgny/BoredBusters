@@ -28,6 +28,13 @@ body {
     color: #f7b900;
 }
 
+.button-holder {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .pagination-container {
     width: 820px;
     height: 50px;
