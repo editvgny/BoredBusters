@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { FaHeart } from 'react-icons/fa';
 import StyledFavButton from '../../styledComponents/StyledFavButton';
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function FavoriteButton(props) {
   const [activity, setActivity] = useState([]);
@@ -34,11 +35,11 @@ export default function FavoriteButton(props) {
 
   }
 
-  return (
+  return Cookies.get('token') ? (
     <StyledFavButton style={{ marginRight: "auto", marginLeft: "auto", minHeight: "50px" }} onClick={updateFavorites}>
       {(activity.id || props.activity.id) ?
         <div style={{ color: "red" }}><FaHeart style={{ height: "40px", width: "40px" }} /></div>
         : <div><FaHeart style={{ height: "40px", width: "40px" }} /></div>}
     </StyledFavButton>
-  )
+  ) : ""
 }

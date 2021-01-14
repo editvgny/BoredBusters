@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 function Login() {
 
@@ -22,7 +23,7 @@ function Login() {
                 })
                 .then((response) => {
                     window.location.replace("/")
-                    document.cookie = "token="+response.data.token
+                    Cookies.set('token', response.data.token)
                 })
                 .catch(error => {
                     console.log(token);
