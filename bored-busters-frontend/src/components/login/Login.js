@@ -5,19 +5,31 @@ function Login() {
 
     const loginUser = (e) => {
         e.preventDefault();
-        const userData = {
-            email: document.getElementById("email").value,
-            password: document.getElementById("password").value
+        let token = document.head.querySelector('meta[name="csrf-token"]');
+        if (!token) {
+            console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
         }
-        console.log(userData)
-        axios.post(`http://127.0.0.1:8000/api/login`, userData)
-            .then((response) => {
-                window.location.replace("/")
-            })
-            .catch(error => {
-                let errorDiv = document.getElementById("error");
-                errorDiv.innerHTML = "Invalid username or password!"
-            })
+        axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
+            axios.post(`http://127.0.0.1:8000/api/login`,  {
+                    email: document.getElementById("email").value,
+                    password: document.getElementById("password").value,
+                    loginToken: 'browser',
+                },
+                {
+                    headers: {
+                        'X-CSRFTOKEN': token,
+                    },
+                })
+                .then((response) => {
+                    window.location.replace("/")
+                    localStorage.setItem("token", response.data.token)
+                })
+                .catch(error => {
+                    let errorDiv = document.getElementById("error");
+                    errorDiv.innerHTML = "Invalid username or password!"
+                })
+        });
+
     }
 
     return (
