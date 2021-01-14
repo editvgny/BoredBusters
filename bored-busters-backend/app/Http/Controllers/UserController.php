@@ -42,13 +42,19 @@ class UserController extends Controller
         $input     = $request->only('email','password');
         $validator = Validator::make($input, $rules);
 
+        $user_data = array(
+            'email'  => $request->email,
+            'password' => $request->password
+        );
+
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'success' => false, 'error' => $validator->messages()], 401);
         }
-        if (Auth::attempt($input)) {
-            $user = User::where('email', '=', $request->email)->first();
-            Auth::login($user);
-            return response(['status' => 200, 'success' => true], 200);
+        if (Auth::attempt($user_data)) {
+            $token = $request->user()->createToken('loginToken');
+            //$user = User::where('email', '=', $request->email)->first();
+            //Auth::login($user);
+            return response(['token' => $token->plainTextToken, 'status' => 200, 'success' => true], 200);
         } else {
             return response()->json(['status' => 401, 'success' => false, 'error' => "Invalid username or password!"], 401);
         }
