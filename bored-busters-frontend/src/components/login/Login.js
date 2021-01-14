@@ -22,9 +22,10 @@ function Login() {
                 })
                 .then((response) => {
                     window.location.replace("/")
-                    localStorage.setItem("token", response.data.token)
+                    document.cookie = "token="+response.data.token
                 })
                 .catch(error => {
+                    console.log(token);
                     let errorDiv = document.getElementById("error");
                     errorDiv.innerHTML = "Invalid username or password!"
                 })
