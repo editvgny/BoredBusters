@@ -5,6 +5,7 @@ import SliderBar from "../../slidebarComponents/Sliderbar";
 import StyledGetButton from "../../styledComponents/StyledGetButton";
 import StyledFavoriteSearchContainer from "../../styledComponents/StyledFavoriteSearchContainer";
 import {SlideValueContext} from "../../../contextComponents/SlideValueContext";
+import axios from 'axios';
 
 function FavoriteSearch(props) {
     const types = ["all", "education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]
@@ -18,8 +19,8 @@ function FavoriteSearch(props) {
 
     const filterActivities = () => {
         const filterData = {
-            activityMinPrice: priceValues.min,
-            activityMaxPrice: priceValues.max,
+            activityMinPrice: priceValues.min/10000,
+            activityMaxPrice: priceValues.max/10000,
         }
         if (activityType) {
             filterData.activityType = activityType;
@@ -28,6 +29,11 @@ function FavoriteSearch(props) {
             filterData.activityParticipants = inputParticipants;
         }
         console.log(filterData);
+        axios.get("http://127.0.0.1:8000/api/get-activity-by-condition/1", {params: filterData})
+            .then((response) => {
+                console.log(response.data);
+                props.setVisibleFavorites(response.data);
+            })
     }
 
     return (

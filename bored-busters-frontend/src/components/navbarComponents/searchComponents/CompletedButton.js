@@ -13,15 +13,11 @@ function CompletedButton(props) {
             activityId: props.activity.id,
             value: newValue,
         }
-        // console.log(props.activity)
         axios.put('http://127.0.0.1:8000/api/complete', complete)
             .then((response) => {
-                // props.setFavorites([]);
-                // console.log(props.activity.completed)
                 props.setCompleted(props.activity.id, props.activity.completed)
             })
     }
-    console.log(props.activity.completed)
 
     return (
         <StyledFavButton style={{marginRight: "auto", marginLeft: "auto", minHeight: "50px"}} onClick={updateCompleted}>

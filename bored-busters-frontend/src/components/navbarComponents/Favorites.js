@@ -59,7 +59,7 @@ export default function Favorites() {
         <React.Fragment>
             {/* ********** */}
             {/* Search box */}
-            <FavoriteSearch visibleFavorites={visibleFavorites}/>
+            <FavoriteSearch visibleFavorites={visibleFavorites} setVisibleFavorites={setVisibleFavorites}/>
 
             {/* ************ */}
             {/* Result cards */}
