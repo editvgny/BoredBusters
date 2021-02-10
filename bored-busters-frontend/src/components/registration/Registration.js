@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import StyledInstruction from "../styledComponents/StyledInstruction";
+import StyledSearchCard from "../styledComponents/StyledSearchCard";
 
 function Registration() {
 
@@ -32,7 +34,12 @@ function Registration() {
     return (
         <div className="form-container">
             <form>
-                <div id="error"/>
+                <StyledSearchCard>
+                    <StyledInstruction>
+                        Register a new account!
+                        <div id="error"/>
+                    </StyledInstruction>
+                </StyledSearchCard>
                 <input id="username" type="text" name="username" placeholder="Username" required/>
                 <input id="email" type="email" name="email" placeholder="Email" required/>
                 <input id="password1" type="password" name="password1" placeholder="Password" required/>
