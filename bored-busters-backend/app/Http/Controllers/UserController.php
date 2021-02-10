@@ -52,9 +52,8 @@ class UserController extends Controller
         }
         if (Auth::attempt($user_data)) {
             $token = $request->user()->createToken('loginToken');
-            //$user = User::where('email', '=', $request->email)->first();
-            //Auth::login($user);
-            return response(['token' => $token->plainTextToken, 'status' => 200, 'success' => true], 200);
+            $user = User::where('email', '=', $request->email)->first();
+            return response(['token' => $token->plainTextToken, 'userId' =>$user->id , 'status' => 200, 'success' => true], 200);
         } else {
             return response()->json(['status' => 401, 'success' => false, 'error' => "Invalid username or password!"], 401);
         }
