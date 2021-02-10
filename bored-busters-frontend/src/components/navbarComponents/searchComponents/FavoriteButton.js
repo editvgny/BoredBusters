@@ -11,36 +11,52 @@ export default function FavoriteButton(props) {
         if (props.activity) {
             setActivity(props.activity)
         } else {
-            axios.get(`http://127.0.0.1:8000/api/get-activity/${props.activity.activity}`
-            )
+            axios.get(`http://127.0.0.1:8000/api/get-activity/${props.activity.activity}`)
                 .then((response) => {
                     setActivity(response.data)
                 })
         }
     }, [props.activity])
 
+    function getFavorites() {
+        axios.get("http://127.0.0.1:8000/api/favorite/1")
+            .then((response) => {props.setFavorites(response.data)}
+            )
+    }
+
+    function deleteFromFavorites() {
+        axios.delete(`http://127.0.0.1:8000/api/favorite/${activity.id}`)
+            .then((response) => {
+                setActivity([])
+                if (props.setActivity) {
+                    props.setActivity([])
+                }
+                if(props.setFavorites){
+                    getFavorites();
+                }
+                updatePagination();
+            })
+    }
+
+    function addToFavorites() {
+        axios.post('http://127.0.0.1:8000/api/favorite', activity)
+            .then((response) => {
+                setActivity(response.data)
+            })
+    }
+
+    function updatePagination() {
+        if (props.visibleFavorites && props.visibleFavorites.length - 1 === 0) {
+            props.refreshVisibleFavorites(props.actualPageNumber - 1)
+        }
+    }
+
     const updateFavorites = () => {
         if (activity.id) {
-            axios.delete(`http://127.0.0.1:8000/api/favorite/${activity.id}`)
-                .then((response) => {
-                    setActivity([])
-                    if (props.setActivity) {
-                        props.setActivity([])
-                    }
-                    if (props.setFavorites) {
-                        axios.get("http://127.0.0.1:8000/api/favorite/1")
-                            .then((response) => {props.setFavorites(response.data)}
-                            )
-                    }
-                    if (props.visibleFavorites && props.visibleFavorites.length - 1 === 0) {
-                        props.refreshVisibleFavorites(props.actualPageNumber - 1)
-                    }
-                })
+            deleteFromFavorites();
+
         } else {
-            axios.post('http://127.0.0.1:8000/api/favorite', activity)
-                .then((response) => {
-                    setActivity(response.data)
-                })
+            addToFavorites();
         }
     }
 
