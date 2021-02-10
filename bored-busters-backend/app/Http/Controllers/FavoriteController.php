@@ -27,12 +27,12 @@ class FavoriteController extends Controller
     public function addActivityById(Request $request)
     {
         return FavoriteActivity::create([
-            "user_id" => 1,
-            "type" => $request->type,
-            "participants" => $request->participants,
-            "activity" => $request->activity,
-            "link" => $request->link,
-            "price" => $request->price,
+            "user_id" => $request['userId'],
+            "type" => $request->activity['type'],
+            "participants" => $request->activity['participants'],
+            "activity" => $request->activity['activity'],
+            "link" => $request->activity['link'],
+            "price" => $request->activity['price'],
             "completed" => 0
         ]);
     }

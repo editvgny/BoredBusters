@@ -29,7 +29,8 @@ function FavoriteSearch(props) {
             filterData.activityParticipants = inputParticipants;
         }
         console.log(filterData);
-        axios.get("http://127.0.0.1:8000/api/get-activity-by-condition/1", {params: filterData})
+        axios.get(`http://127.0.0.1:8000/api/get-activity-by-condition/${sessionStorage.getItem('userId')}`,
+            {params: filterData})
             .then((response) => {
                 console.log(response.data);
                 props.setVisibleFavorites(response.data);

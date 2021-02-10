@@ -14,6 +14,7 @@ import SearchByParticipants from "./components/navbarComponents/searchComponents
 import { ThemeProvider } from "./contextComponents/ThemeContext";
 import Registration from "./components/registration/Registration";
 import Login from "./components/login/Login";
+import Logout from "./components/logout/Logout";
 
 
 function App() {
@@ -26,16 +27,17 @@ function App() {
             <Header />
             <Navbar />
             <div className="container">
-              <Route exact path="/" component={Home}></Route>
-              <Route path="/registration" component={Registration}></Route>
-              <Route path="/login" component={Login}></Route>
-              <Route path="/random" component={RandomActivity}></Route>
-              <Route path="/type" component={SearchByType}></Route>
+              <Route exact path="/" component={Home}/>
+              <Route path="/registration" component={Registration}/>
+              <Route path="/login" component={Login}/>
+              <Route path="/logout" component={Logout}/>
+              <Route path="/random" component={RandomActivity}/>
+              <Route path="/type" component={SearchByType}/>
               <SlideValueContextProvider>
-                <Route path="/cost" component={SearchByCost}></Route>
-                <Route path="/favorites" component={Favorites}></Route>
+                <Route path="/cost" component={SearchByCost}/>
+                <Route path="/favorites" component={Favorites}/>
               </SlideValueContextProvider>
-              <Route path="/participants" component={SearchByParticipants}></Route>
+              <Route path="/participants" component={SearchByParticipants}/>
             </div>
           </div>
         </FavoriteProvider>

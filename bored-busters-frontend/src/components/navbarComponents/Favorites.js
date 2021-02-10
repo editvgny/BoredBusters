@@ -9,14 +9,13 @@ import CompletedButton from "./searchComponents/CompletedButton";
 
 export default function Favorites() {
     const [favorites, setFavorites] = useState([]);
-
     const pageNumbers = [];
     const [actualPageNumber, setActualPageNumber] = useState(1);
     const postsPerPage = 4;
     const [visibleFavorites, setVisibleFavorites] = useState([]);
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/api/favorite/1")
+        axios.get(`http://127.0.0.1:8000/api/favorite/${sessionStorage.getItem('userId')}`)
             .then((response) => {
                 setFavorites(response.data)
             })
@@ -36,7 +35,7 @@ export default function Favorites() {
         favorites.filter((fav) => {
             if (fav.id === activityId) {
                 fav.completed = newValue;
-                axios.get("http://127.0.0.1:8000/api/favorite/1")
+                axios.get(`http://127.0.0.1:8000/api/favorite/${sessionStorage.getItem('userId')}`)
                     .then((response) => {
                         setFavorites(response.data)
                     })

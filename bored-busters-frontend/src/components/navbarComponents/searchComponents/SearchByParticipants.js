@@ -7,21 +7,20 @@ import ActivityCardDetails from "../../ActivityCardDetails";
 import FavoriteButton from "./FavoriteButton"
 
 
-
 export default function SearchByParticipants() {
-  const [participantsActivity, setparticipantsActivity] = useState([]);
-  const [inputParticipants, setparticipants] = useState([]);
+  const [participantsActivity, setParticipantsActivity] = useState([]);
+  const [inputParticipants, setParticipants] = useState([]);
 
   const getParticipantsActivity = () => {
     axios
       .get(
         `http://www.boredapi.com/api/activity?participants=${inputParticipants}`
       )
-      .then((response) => setparticipantsActivity(response.data));
+      .then((response) => setParticipantsActivity(response.data));
   };
 
   const clearFields = () => {
-    setparticipants("");
+    setParticipants("");
   };
 
   return participantsActivity.length !== 0 ? (
@@ -33,7 +32,7 @@ export default function SearchByParticipants() {
           type="text"
           value={inputParticipants}
           placeholder={inputParticipants}
-          onChange={(e) => setparticipants(e.target.value)}
+          onChange={(e) => setParticipants(e.target.value)}
           onFocus={clearFields}
         />
       </StyledInputContainer>
@@ -47,7 +46,7 @@ export default function SearchByParticipants() {
 
       {participantsActivity.activity ? (
         <React.Fragment>
-          <FavoriteButton activity={participantsActivity} setActivity={setparticipantsActivity}/>
+          <FavoriteButton activity={participantsActivity} setActivity={setParticipantsActivity}/>
           <ActivityCardDetails activity={participantsActivity} />
         </React.Fragment>
       ) : (
@@ -64,7 +63,7 @@ export default function SearchByParticipants() {
             type="text"
             value={inputParticipants}
             placeholder={inputParticipants}
-            onChange={(e) => setparticipants(e.target.value)}
+            onChange={(e) => setParticipants(e.target.value)}
             onFocus={clearFields}
           />
         </StyledInputContainer>

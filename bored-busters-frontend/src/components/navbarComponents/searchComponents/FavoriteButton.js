@@ -6,74 +6,61 @@ import Cookies from "js-cookie";
 
 export default function FavoriteButton(props) {
     const [activity, setActivity] = useState([]);
-    let token = document.head.querySelector('meta[name="csrf-token"]');
-    if (!token) {
-        console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-    }
 
     useEffect(() => {
         if (props.activity) {
             setActivity(props.activity)
         } else {
-            axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
-                axios.get(`http://127.0.0.1:8000/api/get-activity/${props.activity.activity}`, {
-                    headers: {
-                        'X-CSRFTOKEN': token,
-                    }
+            axios.get(`http://127.0.0.1:8000/api/get-activity/${props.activity.activity}`)
+                .then((response) => {
+                    setActivity(response.data)
                 })
-                    .then((response) => {
-                        setActivity(response.data)
-                    })
-            })
         }
     }, [props.activity])
 
+    function getFavorites() {
+        axios.get(`http://127.0.0.1:8000/api/favorite/${sessionStorage.getItem('userId')}`)
+            .then((response) => {props.setFavorites(response.data)}
+            )
+    }
+
+    function deleteFromFavorites() {
+        axios.delete(`http://127.0.0.1:8000/api/favorite/${activity.id}`)
+            .then((response) => {
+                setActivity([])
+                if (props.setActivity) {
+                    props.setActivity([])
+                }
+                if(props.setFavorites){
+                    getFavorites();
+                }
+                updatePagination();
+            })
+    }
+
+    function addToFavorites() {
+        let data =  {
+            activity: activity,
+            userId: sessionStorage.getItem('userId')
+        }
+        axios.post('http://127.0.0.1:8000/api/favorite', data )
+            .then((response) => {
+                setActivity(response.data)
+            })
+    }
+
+    function updatePagination() {
+        if (props.visibleFavorites && props.visibleFavorites.length - 1 === 0) {
+            props.refreshVisibleFavorites(props.actualPageNumber - 1)
+        }
+    }
+
     const updateFavorites = () => {
-
         if (activity.id) {
-            axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
-                axios.delete(`http://127.0.0.1:8000/api/favorite/${activity.id}`, {
-                    headers: {
-                        'X-CSRFTOKEN': token,
-                    }
-                })
-                    .then((response) => {
-                        setActivity([])
+            deleteFromFavorites();
 
-                        if (props.setActivity) {
-                            props.setActivity([])
-                        }
-                        if (props.setFavorites) {
-                            axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
-                                axios.get("http://127.0.0.1:8000/api/favorite/1", {
-                                    headers: {
-                                        'X-CSRFTOKEN': token,
-                                    }
-                                })
-                                    .then((response) => {props.setFavorites(response.data)})
-                            })
-                        }
-
-                        // This section checks if visibleFavorites is empty or not. And if it is it changes
-                        // the actualPageNumber and the visibleFavorites too.
-                        // -1 is because async calls. When visibleFavorites has one element and we get here it will surely
-                        // delete it and it's length will be 0
-                        if (props.visibleFavorites && props.visibleFavorites.length - 1 === 0) {
-                            props.refreshVisibleFavorites(props.actualPageNumber - 1)
-                        }
-                    })
-            })
         } else {
-            axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
-                axios.post('http://127.0.0.1:8000/api/favorite', activity, {
-                    headers: {
-                        'X-CSRFTOKEN': token,
-                    }
-                })
-                    .then((response) => {
-                        setActivity(response.data)
-                    })
-            })
+            addToFavorites();
         }
     }
 
