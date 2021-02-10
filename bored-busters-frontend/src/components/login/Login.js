@@ -27,6 +27,7 @@ function Login() {
                 .then((response) => {
                     window.location.replace("/")
                     Cookies.set('token', response.data.token)
+                    sessionStorage.setItem('userId', response.data.userId);
                 })
                 .catch(error => {
                     console.log(token);
