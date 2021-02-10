@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Cookies from "js-cookie";
+import StyledSearchCard from "../styledComponents/StyledSearchCard";
+import StyledInstruction from "../styledComponents/StyledInstruction";
 
 function Login() {
 
@@ -37,7 +39,12 @@ function Login() {
     return (
         <div className="form-container">
             <form>
-                <div id="error"/>
+                <StyledSearchCard>
+                    <StyledInstruction>
+                        Login to collect your favorites!
+                        <div id="error"/>
+                    </StyledInstruction>
+                </StyledSearchCard>
                 <input id="email" type="email" name="email" placeholder="Email" required/>
                 <input id="password" type="password" name="password1" placeholder="Password" required/>
                 <button type="button" onClick={loginUser}>Login</button>
