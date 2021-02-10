@@ -19,7 +19,7 @@ export default function FavoriteButton(props) {
     }, [props.activity])
 
     function getFavorites() {
-        axios.get("http://127.0.0.1:8000/api/favorite/1")
+        axios.get(`http://127.0.0.1:8000/api/favorite/${sessionStorage.getItem('userId')}`)
             .then((response) => {props.setFavorites(response.data)}
             )
     }
@@ -39,7 +39,11 @@ export default function FavoriteButton(props) {
     }
 
     function addToFavorites() {
-        axios.post('http://127.0.0.1:8000/api/favorite', activity)
+        let data =  {
+            activity: activity,
+            userId: sessionStorage.getItem('userId')
+        }
+        axios.post('http://127.0.0.1:8000/api/favorite', data )
             .then((response) => {
                 setActivity(response.data)
             })
