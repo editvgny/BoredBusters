@@ -5,32 +5,15 @@ import StyledGetButton from "../../styledComponents/StyledGetButton";
 import StyledActivityContainer from "../../styledComponents/StyledActivityContainer";
 import ActivityCardDetails from "../../ActivityCardDetails";
 import FavoriteButton from "./FavoriteButton"
-
-
-
 import { SlideValueContext } from "../../../contextComponents/SlideValueContext";
+import StyledsearchCard from "../../styledComponents/StyledsearchCard";
+import StyledSearcCard2 from "../../styledComponents/StyledSearcCard2";
+import StyledSearchBox from "../../styledComponents/StyledSearchBox";
+import StyledInstruction from "../../styledComponents/StyledInstruction";
 
 export default function SearchByCost() {
   const [contextValues] = useContext(SlideValueContext);
   const [activityData, setActivityData] = useState([]);
-  const searchCardStyle = {
-    margin: "20px",
-    width: "820px",
-    minHeight: "100px",
-    background: "#172251",
-    borderRadius: "10px",
-  };
-
-  const searchCardStyle2 = {
-    display: "flex",
-    flexDirection: "column"
-  };
-
-  const searchBoxStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  };
 
   const getActivity = () => {
     const min = contextValues.min / 10000;
@@ -43,62 +26,47 @@ export default function SearchByCost() {
   };
 
   return activityData.length !== 0 ? (
-    <div style={searchCardStyle}>
-      <p
-        style={{
-          textAlign: "center",
-          fontFamily: "Mountains of Christmas",
-          fontSize: "30px",
-          fontWeight: "900",
-          letterSpacing: "7px",
-          color: "#72CD55",
-        }}
-      >
-        Select your price range!
-      </p>
-      <div style={searchCardStyle2}>
-        <SliderBar />
-      </div>
-      <div style={searchBoxStyle}>
-        <StyledGetButton onClick={getActivity}>
-          Give me an activity!
-        </StyledGetButton>
-      </div>
-
-      <StyledActivityContainer style={{ width: "800px" }}>
-        {activityData.activity ? (
-          <React.Fragment>
-            <FavoriteButton activity={activityData} setActivity={setActivityData}/>
-            <ActivityCardDetails activity={activityData} />
-          </React.Fragment>
+      <React.Fragment>
+      <StyledsearchCard>
+          <StyledInstruction>
+              Select your price range!
+          </StyledInstruction>
+          <StyledSearcCard2>
+              <SliderBar />
+          </StyledSearcCard2>
+          <StyledSearchBox>
+              <StyledGetButton onClick={getActivity}>
+                  Give me an activity!
+              </StyledGetButton>
+          </StyledSearchBox>
+          <StyledActivityContainer style={{ width: "800px" }}>
+              {activityData.activity ? (
+                  <React.Fragment>
+                      <FavoriteButton activity={activityData} setActivity={setActivityData}/>
+                      <ActivityCardDetails activity={activityData} />
+                  </React.Fragment>
         ) : (
             <div style={{ margin: "0 auto", height: "60px" }} >No activity was found!</div>
           )}
-      </StyledActivityContainer>
-
-    </div>
+          </StyledActivityContainer>
+      </StyledsearchCard>
+      </React.Fragment>
   ) : (
-      <div style={searchCardStyle}>
-        <p
-          style={{
-            textAlign: "center",
-            fontFamily: "Mountains of Christmas",
-            fontSize: "30px",
-            fontWeight: "900",
-            letterSpacing: "7px",
-            color: "#72CD55",
-          }}
-        >
-          Select your price range!
-      </p>
-        <div style={searchCardStyle2}>
-          <SliderBar />
-        </div>
-        <div style={searchBoxStyle}>
-          <StyledGetButton onClick={getActivity}>
-            Give me an activity!
-        </StyledGetButton>
-        </div>
-      </div>
+      <React.Fragment>
+          <StyledsearchCard>
+              <StyledInstruction>
+                  Select your price range!
+              </StyledInstruction>
+              <StyledSearcCard2>
+                  <SliderBar />
+              </StyledSearcCard2>
+              <StyledSearchBox>
+                  <StyledGetButton onClick={getActivity}>
+                      Give me an activity!
+                  </StyledGetButton>
+              </StyledSearchBox>
+          </StyledsearchCard>
+      </React.Fragment>
+
     );
 }
