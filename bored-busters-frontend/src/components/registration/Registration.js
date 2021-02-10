@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import StyledInstruction from "../styledComponents/StyledInstruction";
 import StyledSearchCard from "../styledComponents/StyledSearchCard";
+import {FormGroup, Input, Button} from "../styledComponents/StyledForm";
 
 function Registration() {
 
@@ -33,19 +34,19 @@ function Registration() {
 
     return (
         <div className="form-container">
-            <form>
+            <FormGroup>
                 <StyledSearchCard>
                     <StyledInstruction>
                         Register a new account!
                         <div id="error"/>
                     </StyledInstruction>
                 </StyledSearchCard>
-                <input id="username" type="text" name="username" placeholder="Username" required/>
-                <input id="email" type="email" name="email" placeholder="Email" required/>
-                <input id="password1" type="password" name="password1" placeholder="Password" required/>
-                <input id="password2" type="password" name="password2" placeholder="Password again" required/>
-                <button type="button" onClick={registerUser}>Register</button>
-            </form>
+                <Input id="username" type="text" name="username" placeholder="Username" required/>
+                <Input id="email" type="email" name="email" placeholder="Email" required/>
+                <Input id="password1" type="password" name="password1" placeholder="Password" required/>
+                <Input id="password2" type="password" name="password2" placeholder="Password again" required/>
+                <Button type="button" onClick={registerUser}>Register</Button>
+            </FormGroup>
         </div>
     );
 }
