@@ -5,7 +5,8 @@ export const FormGroup = styled.form`
     flex-direction: column;
 	margin: 50px auto;
 	align-items: center;
-	
+	 background: #172251;
+	 border-radius: 10px;	
 `;
 
 export const Label = styled.label`
