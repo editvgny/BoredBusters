@@ -6,7 +6,7 @@ import StyledActivityContainer from "../../styledComponents/StyledActivityContai
 import ActivityCardDetails from "../../ActivityCardDetails";
 import FavoriteButton from "./FavoriteButton"
 import { SlideValueContext } from "../../../contextComponents/SlideValueContext";
-import StyledsearchCard from "../../styledComponents/StyledsearchCard";
+import StyledsearchCard from "../../styledComponents/StyledSearchCard";
 import StyledSearcCard2 from "../../styledComponents/StyledSearcCard2";
 import StyledSearchBox from "../../styledComponents/StyledSearchBox";
 import StyledInstruction from "../../styledComponents/StyledInstruction";
