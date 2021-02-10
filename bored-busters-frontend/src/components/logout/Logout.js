@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 
-
 function Logout() {
     sessionStorage.clear();
     Cookies.remove("token");
