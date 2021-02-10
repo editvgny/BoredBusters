@@ -3,6 +3,7 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 import StyledSearchCard from "../styledComponents/StyledSearchCard";
 import StyledInstruction from "../styledComponents/StyledInstruction";
+import {FormGroup, Input, Button} from "../styledComponents/StyledForm";
 
 function Login() {
 
@@ -38,17 +39,17 @@ function Login() {
 
     return (
         <div className="form-container">
-            <form>
+            <FormGroup>
                 <StyledSearchCard>
                     <StyledInstruction>
                         Login to collect your favorites!
                         <div id="error"/>
                     </StyledInstruction>
                 </StyledSearchCard>
-                <input id="email" type="email" name="email" placeholder="Email" required/>
-                <input id="password" type="password" name="password1" placeholder="Password" required/>
-                <button type="button" onClick={loginUser}>Login</button>
-            </form>
+                <Input id="email" type="email" name="email" placeholder="Email" required/>
+                <Input id="password" type="password" name="password1" placeholder="Password" required/>
+                <Button type="button" onClick={loginUser}>Login</Button>
+            </FormGroup>
         </div>
     );
 }
