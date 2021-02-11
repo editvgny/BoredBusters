@@ -58,7 +58,6 @@ export function Handle({
           width: 28,
           height: 42,
           cursor: "pointer",
-          // border: '1px solid white',
           backgroundColor: "none",
         }}
         {...getHandleProps(id)}

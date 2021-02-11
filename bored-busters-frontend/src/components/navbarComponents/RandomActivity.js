@@ -23,7 +23,7 @@ export default function RandomActivity() {
         Give me a random activity!
       </StyledGetButton>
 
-      <FavoriteButton activity={randomActivity} />
+      <FavoriteButton activity={randomActivity} setActivity={setrandomActivity}/>
       <ActivityCardDetails activity={randomActivity} />
 
     </StyledActivityContainer>
