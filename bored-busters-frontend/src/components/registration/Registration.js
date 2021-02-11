@@ -16,8 +16,6 @@ function Registration() {
             password2:  document.getElementById("password2").value,
         }
 
-        console.log(userData);
-
         axios.post(`http://127.0.0.1:8000/api/register`, userData)
             .then((response) => {
                 window.location.replace("/")
