@@ -81,7 +81,7 @@ export default function Favorites() {
 
             {/* ********** */}
             {/* Pagination */}
-            {favorites.length !== 0 ? (
+            {visibleFavorites.length !== 0 ? (
                 <div className="pagination-container">
                     {pageNumbers.map(pageNumber => (
                         <div key={pageNumber} onClick={() => refreshVisibleFavorites(pageNumber)}
