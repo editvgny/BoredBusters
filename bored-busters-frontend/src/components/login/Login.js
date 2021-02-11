@@ -30,7 +30,6 @@ function Login() {
                     sessionStorage.setItem('userId', response.data.userId);
                 })
                 .catch(error => {
-                    console.log(token);
                     let errorDiv = document.getElementById("error");
                     errorDiv.innerHTML = "Invalid username or password!"
                 })
