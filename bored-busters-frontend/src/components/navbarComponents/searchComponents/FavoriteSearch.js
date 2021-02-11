@@ -44,7 +44,6 @@ function FavoriteSearch(props) {
                 <select className="option" onChange={
                     e => e.target.value==="all" ? setActivityType("") : setActivityType(e.target.value)
                 }>
-                    {/*<option value="">all</option>*/}
                     {types.map((type) => (
                         <option key={type} value={type}>{type}</option>
                     ))}
