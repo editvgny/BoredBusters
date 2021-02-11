@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import RandomActivity from "./components/navbarComponents/RandomActivity";
 import { SlideValueContextProvider } from "./contextComponents/SlideValueContext";
-import { FavoriteProvider } from './contextComponents/FavoriteContext';
 import Favorites from './components/navbarComponents/Favorites';
 import SearchByCost from "./components/navbarComponents/searchComponents/SearchByCost";
 import SearchByType from './components/navbarComponents/searchComponents/SearchByType';
@@ -22,7 +21,6 @@ function App() {
   return (
     <Router>
       <ThemeProvider>
-        <FavoriteProvider>
           <div className="App">
             <Header />
             <Navbar />
@@ -40,7 +38,6 @@ function App() {
               <Route path="/participants" component={SearchByParticipants}/>
             </div>
           </div>
-        </FavoriteProvider>
       </ThemeProvider>
     </Router>
   );
