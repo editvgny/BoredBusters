@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Models\FavoriteActivity;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class FavoriteController extends Controller
 {
@@ -75,5 +78,69 @@ class FavoriteController extends Controller
     {
         return FavoriteActivity::where(["id" => $request->activityId])
             ->update(["completed" => $request->value]);
+    }
+
+    public function export(Request $request)
+    {
+        //Create excel sheet
+        $spreadsheet = new Spreadsheet();
+        $worksheet = new Worksheet($spreadsheet, 'Favorites data');
+        $spreadsheet->addSheet($worksheet, 0);
+        $spreadsheet->removeSheetByIndex(1);
+
+        $this->setColumnTitles($worksheet);
+        $this->setColumnAutoWidth($worksheet);
+
+        //Get favorites data from database
+        $favoritesData = $this->getFavorites($request->userId);
+
+        $actualRowIndex = 2;
+        foreach($favoritesData as $data) {
+            $rowData = [];
+            $rowData[] = $data->activity;
+            $rowData[] = $data->type;
+            $rowData[] = $data->participants;
+
+            if ($data->price) {
+                $rowData[] = $data->price;
+            } else {
+                $rowData[] = '0';
+            }
+
+            if ($data->completed) {
+                $rowData[] = 'Completed';
+            } else {
+                $rowData[] = 'Not completed';
+            }
+
+            //Write data from $actualDataToTableRow to the actual row
+            $worksheet->fromArray($rowData, NULL, 'A' . $actualRowIndex);
+            $actualRowIndex++;
+        }
+
+        //Save and send as a response
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('favorites.xlsx');
+        $file = public_path() . DIRECTORY_SEPARATOR . 'favorites.xlsx';
+        $headers = ['Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+//        $headers[] = $request->headers;
+        return response()->download($file, 'favorites.xlsx', $headers)->deleteFileAfterSend(true);
+    }
+
+    private function setColumnTitles(Worksheet $worksheet): void
+    {
+        $titles = ['Activity', 'Type', 'Participants', 'Price', 'Completed'];
+        $worksheet->fromArray($titles, NULL, 'A1');
+    }
+
+    /**
+     * @param Worksheet $worksheet
+     */
+    private function setColumnAutoWidth(Worksheet $worksheet): void
+    {
+        $columns = ['A', 'B', 'C', 'D', 'E'];
+        foreach ($columns as $column) {
+            $worksheet->getColumnDimension($column)->setAutoSize(true);
+        }
     }
 }
