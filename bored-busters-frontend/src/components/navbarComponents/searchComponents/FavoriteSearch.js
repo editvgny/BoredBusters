@@ -6,6 +6,7 @@ import StyledGetButton from "../../styledComponents/StyledGetButton";
 import StyledFavoriteSearchContainer from "../../styledComponents/StyledFavoriteSearchContainer";
 import {SlideValueContext} from "../../../contextComponents/SlideValueContext";
 import axios from 'axios';
+import FileDownload from 'js-file-download';
 
 function FavoriteSearch(props) {
     const types = ["all", "education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]
@@ -33,6 +34,17 @@ function FavoriteSearch(props) {
             .then((response) => {
                 props.setVisibleFavorites(response.data);
             })
+    }
+
+    const exportActivities = () => {
+        const userId = sessionStorage.getItem('userId');
+        axios
+            .get(`http://127.0.0.1:8000/api/export-favorites/${userId}`,
+                {responseType: 'blob'})
+            .then((response) => {
+                    FileDownload(response.data, 'favorites.xlsx');
+                }
+            );
     }
 
     return (
@@ -78,6 +90,12 @@ function FavoriteSearch(props) {
             {/* No result box */}
             {props.visibleFavorites.length === 0 ? (
                 <div className="no-result">No results were found</div>) : ("")};
+
+            {/* *************************** */}
+            {/* Export all favorites button */}
+            <StyledGetButton style={{margin: "5px auto"}} onClick={exportActivities}>
+                Export ALL my favorites!
+            </StyledGetButton>
 
         </StyledFavoriteSearchContainer>
     );
