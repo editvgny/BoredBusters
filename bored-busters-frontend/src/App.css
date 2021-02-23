@@ -17,8 +17,8 @@ body {
 
 .welcome {
     padding: 10px;
-    margin: 40px;
 
+    margin: 40px;
     font-family: "Mountains of Christmas";
     font-size: 20px;
     font-weight: 900;
@@ -26,6 +26,13 @@ body {
     text-align: center;
 
     color: #f7b900;
+}
+
+.button-holder {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .pagination-container {

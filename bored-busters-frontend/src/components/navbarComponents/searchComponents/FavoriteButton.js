@@ -1,41 +1,74 @@
-import React, { useContext } from "react";
-import { FavoriteContext } from '../../../contextComponents/FavoriteContext';
-import { FaHeart } from 'react-icons/fa';
+import React, {useState, useEffect} from "react";
+import {FaHeart} from 'react-icons/fa';
 import StyledFavButton from '../../styledComponents/StyledFavButton';
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function FavoriteButton(props) {
-  const [favorites, setFavorites] = useContext(FavoriteContext);
+    const [activity, setActivity] = useState([]);
 
-  const isCollected = (array) =>
-    array.map((item) => item.activity).includes(props.activity.activity);
+    useEffect(() => {
+        if (props.activity) {
+            setActivity(props.activity)
+        } else {
+            axios.get(`http://127.0.0.1:8000/api/get-activity/${props.activity.activity}`)
+                .then((response) => {
+                    setActivity(response.data)
+                })
+        }
+    }, [props.activity])
 
-  const removeItem = (array) =>
-    array.filter((element) => element.key !== props.activity.key);
-
-  const updateFavorites = () => {
-    setFavorites((prevCollection) => {
-      if (!isCollected(prevCollection)) {
-        return [...prevCollection, props.activity];
-      }
-      return removeItem(prevCollection);
-    });
-
-    if (props.setCurrentPageOriginals && props.currentPageOriginals > 1 && props.originalCurrentPost.length === 1) {
-      props.setCurrentPageOriginals(props.currentPageOriginals - 1);
+    function getFavorites() {
+        axios.get(`http://127.0.0.1:8000/api/favorite/${sessionStorage.getItem('userId')}`)
+            .then((response) => {props.setFavorites(response.data)}
+            )
     }
 
-    if (props.setSearchedFavorites) {
-      props.setSearchedFavorites((prevCollection) => {
-        return removeItem(prevCollection);
-      });
-    };
-  }
+    function deleteFromFavorites() {
+        axios.delete(`http://127.0.0.1:8000/api/favorite/${activity.id}`)
+            .then((response) => {
+                setActivity([])
+                if (props.setActivity) {
+                    props.setActivity([])
+                }
+                if(props.setFavorites){
+                    getFavorites();
+                }
+                updatePagination();
+            })
+    }
 
-  return (
-    <StyledFavButton style={{ marginRight: "auto", marginLeft: "auto", minHeight: "50px" }} onClick={updateFavorites}>
-      {isCollected(favorites) ?
-        <div style={{ color: "red" }}><FaHeart style={{ height: "40px", width: "40px" }} /></div>
-        : <div><FaHeart style={{ height: "40px", width: "40px" }} /></div>}
-    </StyledFavButton>
-  )
+    function addToFavorites() {
+        let data =  {
+            activity: activity,
+            userId: sessionStorage.getItem('userId')
+        }
+        axios.post('http://127.0.0.1:8000/api/favorite', data )
+            .then((response) => {
+                setActivity(response.data)
+            })
+    }
+
+    function updatePagination() {
+        if (props.visibleFavorites && props.visibleFavorites.length - 1 === 0) {
+            props.refreshVisibleFavorites(props.actualPageNumber - 1)
+        }
+    }
+
+    const updateFavorites = () => {
+        if (activity.id) {
+            deleteFromFavorites();
+
+        } else {
+            addToFavorites();
+        }
+    }
+
+    return Cookies.get('token') ? (
+        <StyledFavButton style={{marginRight: "auto", marginLeft: "auto", minHeight: "50px"}} onClick={updateFavorites}>
+            {(activity.id) ?
+                <div style={{color: "red"}}><FaHeart style={{height: "40px", width: "40px"}}/></div>
+                : <div><FaHeart style={{height: "40px", width: "40px"}}/></div>}
+        </StyledFavButton>
+    ) : ("")
 }
