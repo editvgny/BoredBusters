@@ -29,3 +29,5 @@ Route::delete('/favorite/{activityId}', [\App\Http\Controllers\FavoriteControlle
 Route::post('/favorite', [\App\Http\Controllers\FavoriteController::class, 'addActivityById']);
 Route::put('/complete', [\App\Http\Controllers\FavoriteController::class, 'completeById']);
 
+Route::get('/export-favorites/{userId}', [FavoriteController::class, 'export']);
+
