@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import StyledSelectContainer from "../../styledComponents/StyledSelectContainer";
 import StyledInputContainer from "../../styledComponents/StyledInputContainer";
-import SliderBar from "../../slidebarComponents/Sliderbar";
+import SliderBar from "../../slidebarComponents/SliderBar";
 import StyledGetButton from "../../styledComponents/StyledGetButton";
 import StyledFavoriteSearchContainer from "../../styledComponents/StyledFavoriteSearchContainer";
 import {SlideValueContext} from "../../../contextComponents/SlideValueContext";

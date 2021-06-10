@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import axios from "axios";
-import SliderBar from "../../slidebarComponents/Sliderbar";
+import SliderBar from "../../slidebarComponents/SliderBar";
 import StyledGetButton from "../../styledComponents/StyledGetButton";
 import StyledActivityContainer from "../../styledComponents/StyledActivityContainer";
 import ActivityCardDetails from "../../ActivityCardDetails";
