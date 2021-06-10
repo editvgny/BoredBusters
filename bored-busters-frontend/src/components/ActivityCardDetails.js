@@ -1,9 +1,9 @@
 import React from "react";
-import { FaDollarSign } from "react-icons/fa";
+import {FaDollarSign} from "react-icons/fa";
 
 
 export default function ActivityCardDetails(props) {
-    const { activity, type, participants, price, link } = props.activity;
+    const {activity, type, participants, price, link} = props.activity;
 
     const createPriceSign = (price) => {
         if (price <= 0.1) {
@@ -11,7 +11,7 @@ export default function ActivityCardDetails(props) {
                 <FaDollarSign style={{color: 'red'}}/>
                 <FaDollarSign/>
                 <FaDollarSign/>
-                    </React.Fragment>
+            </React.Fragment>
         } else if (price > 0.1 && price <= 0.3) {
             return <React.Fragment>
                 <FaDollarSign style={{color: 'red'}}/>
@@ -29,20 +29,15 @@ export default function ActivityCardDetails(props) {
 
     return (
         <div className="details">
-
-            <div style={{ fontSize: "35px", height: "100px", textAlign: "center" }}>{activity}</div>
-
+            <div style={{fontSize: "35px", height: "100px", textAlign: "center"}}>{activity}</div>
             <div>Type: {type}</div>
-
             <div>Number of participants:{participants}</div>
-
             <div> Price: {createPriceSign(price)}</div>
-
             {link ? (
                 <div>
                     <a href={link} target="_blank" rel="noopener noreferrer">Click here for more information</a>{" "}
                 </div>
             ) : ("")}
-        </div >
+        </div>
     )
 }
