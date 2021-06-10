@@ -17,7 +17,7 @@ export default function Registration() {
         }
 
         axios.post(`http://127.0.0.1:8000/api/register`, userData)
-            .then((response) => {
+            .then(() => {
                 window.location.replace("/")
             })
             .catch(error => {
