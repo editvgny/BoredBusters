@@ -26,12 +26,12 @@ export default function FavoriteButton(props) {
 
     function deleteFromFavorites() {
         axios.delete(`http://127.0.0.1:8000/api/favorite/${activity.id}`)
-            .then((response) => {
+            .then(() => {
                 setActivity([])
                 if (props.setActivity) {
                     props.setActivity([])
                 }
-                if(props.setFavorites){
+                if (props.setFavorites) {
                     getFavorites();
                 }
                 updatePagination();
@@ -39,11 +39,11 @@ export default function FavoriteButton(props) {
     }
 
     function addToFavorites() {
-        let data =  {
+        let data = {
             activity: activity,
             userId: sessionStorage.getItem('userId')
         }
-        axios.post('http://127.0.0.1:8000/api/favorite', data )
+        axios.post('http://127.0.0.1:8000/api/favorite', data)
             .then((response) => {
                 setActivity(response.data)
             })
@@ -58,7 +58,6 @@ export default function FavoriteButton(props) {
     const updateFavorites = () => {
         if (activity.id) {
             deleteFromFavorites();
-
         } else {
             addToFavorites();
         }
@@ -67,8 +66,12 @@ export default function FavoriteButton(props) {
     return Cookies.get('token') ? (
         <StyledFavButton style={{marginRight: "auto", marginLeft: "auto", minHeight: "50px"}} onClick={updateFavorites}>
             {(activity.id) ?
-                <div style={{color: "red"}}><FaHeart style={{height: "40px", width: "40px"}}/></div>
-                : <div><FaHeart style={{height: "40px", width: "40px"}}/></div>}
+                <div style={{color: "red"}}>
+                    <FaHeart style={{height: "40px", width: "40px"}}/>
+                </div>
+                : <div>
+                    <FaHeart style={{height: "40px", width: "40px"}}/>
+                </div>}
         </StyledFavButton>
     ) : ("")
 }
