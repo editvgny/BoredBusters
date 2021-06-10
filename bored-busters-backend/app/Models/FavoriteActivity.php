@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FavoriteActivity extends Model
-{
+class FavoriteActivity extends Model {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'activity',
         'type',
@@ -16,7 +18,5 @@ class FavoriteActivity extends Model
         'price',
         'link',
         'user_id',
-        'completed'
-    ];
-
+        'completed'];
 }
