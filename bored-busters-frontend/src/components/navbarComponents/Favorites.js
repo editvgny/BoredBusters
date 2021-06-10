@@ -43,7 +43,6 @@ export default function Favorites() {
         })
     }
 
-
     if (favorites.length === 0) {
         return (
             <StyledActivityContainerForFavorites>
@@ -56,11 +55,8 @@ export default function Favorites() {
 
     return (
         <React.Fragment>
-            {/* ********** */}
             {/* Search box */}
             <FavoriteSearch visibleFavorites={visibleFavorites} setVisibleFavorites={setVisibleFavorites}/>
-
-            {/* ************ */}
             {/* Result cards */}
             {visibleFavorites.map((favorite, index) => (
                 <StyledActivityContainerForFavorites key={index}>
@@ -78,8 +74,6 @@ export default function Favorites() {
                     </React.Fragment>
                 </StyledActivityContainerForFavorites>)
             )}
-
-            {/* ********** */}
             {/* Pagination */}
             {visibleFavorites.length !== 0 ? (
                 <div className="pagination-container">
