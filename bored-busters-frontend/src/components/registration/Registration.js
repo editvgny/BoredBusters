@@ -4,7 +4,7 @@ import StyledInstruction from "../styledComponents/StyledInstruction";
 import StyledSearchCard from "../styledComponents/StyledSearchCard";
 import {FormGroup, Input, Button} from "../styledComponents/StyledForm";
 
-function Registration() {
+export default function Registration() {
 
     const registerUser = (event) => {
         event.preventDefault()
@@ -13,7 +13,7 @@ function Registration() {
             username: document.getElementById("username").value,
             email: document.getElementById("email").value,
             password1: document.getElementById("password1").value,
-            password2:  document.getElementById("password2").value,
+            password2: document.getElementById("password2").value,
         }
 
         axios.post(`http://127.0.0.1:8000/api/register`, userData)
@@ -21,12 +21,12 @@ function Registration() {
                 window.location.replace("/")
             })
             .catch(error => {
-               let errorDiv = document.getElementById("error");
-               if (error.response.data.error.email && error.response.data.error.email[0] === "The email has already been taken.") {
-                   errorDiv.innerHTML = error.response.data.error.email;
-               } else {
-                   errorDiv.innerHTML = "All fields must be filled and the passwords need to be matched!"
-               }
+                let errorDiv = document.getElementById("error");
+                if (error.response.data.error.email && error.response.data.error.email[0] === "The email has already been taken.") {
+                    errorDiv.innerHTML = error.response.data.error.email;
+                } else {
+                    errorDiv.innerHTML = "All fields must be filled and the passwords need to be matched!"
+                }
             })
     }
 
@@ -48,5 +48,3 @@ function Registration() {
         </div>
     );
 }
-
-export default Registration;
