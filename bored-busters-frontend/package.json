@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "prop-types": "^15.7.2",
     "react-player": "^2.8.2"
   }
 }
