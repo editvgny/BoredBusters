@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import StyledHeader from "./styledComponents/StyledHeader"
 import StyledThemeSwitcher from "./styledComponents/StyledThemeSwitcher"
 import StyledMusicControl from "./styledComponents/StyledMusicControl"
-import { Link } from "react-router-dom"
-import { ThemeContext } from '../contextComponents/ThemeContext';
+import {Link} from "react-router-dom"
+import {ThemeContext} from '../contextComponents/ThemeContext';
 import SnowFlakes from "./SnowFlakes";
 import "../Snowflake.css";
 import LightRope from './LightRope';
@@ -33,8 +33,8 @@ export default function Header() {
             <StyledHeader>
                 {theme === "onSnow" ?
                     <React.Fragment>
-                        <SnowFlakes />
-                        <LightRope />
+                        <SnowFlakes/>
+                        <LightRope/>
                     </React.Fragment> :
                     <></>}
                 <Link to="/">
