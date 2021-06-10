@@ -14,7 +14,7 @@ export default function CompletedButton(props) {
             value: newValue,
         }
         axios.put('http://127.0.0.1:8000/api/complete', complete)
-            .then((response) => {
+            .then(() => {
                 props.setCompleted(props.activity.id, props.activity.completed)
             })
     }
