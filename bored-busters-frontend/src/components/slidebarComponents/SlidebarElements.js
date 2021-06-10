@@ -1,40 +1,39 @@
-import React, { Fragment } from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 
 // *******************************************************
 // RAIL
 // *******************************************************
 const railOuterStyle = {
-  position: "absolute",
-  width: "100%",
-  height: 42,
-  transform: "translate(0%, -50%)",
-  borderRadius: 7,
-  cursor: "pointer",
-  // border: '1px solid white',
+    position: "absolute",
+    width: "100%",
+    height: 42,
+    transform: "translate(0%, -50%)",
+    borderRadius: 7,
+    cursor: "pointer",
 };
 
 const railInnerStyle = {
-  position: "absolute",
-  width: "100%",
-  height: 14,
-  transform: "translate(0%, -50%)",
-  borderRadius: 7,
-  pointerEvents: "none",
-  backgroundColor: "rgb(155,155,155)",
+    position: "absolute",
+    width: "100%",
+    height: 14,
+    transform: "translate(0%, -50%)",
+    borderRadius: 7,
+    pointerEvents: "none",
+    backgroundColor: "rgb(155,155,155)",
 };
 
-export function SliderRail({ getRailProps }) {
-  return (
-    <Fragment>
-      <div style={railOuterStyle} {...getRailProps()} />
-      <div style={railInnerStyle} />
-    </Fragment>
-  );
+export function SliderRail({getRailProps}) {
+    return (
+        <Fragment>
+            <div style={railOuterStyle} {...getRailProps()} />
+            <div style={railInnerStyle}/>
+        </Fragment>
+    );
 }
 
 SliderRail.propTypes = {
-  getRailProps: PropTypes.func.isRequired,
+    getRailProps: PropTypes.func.isRequired,
 };
 
 // *******************************************************
@@ -84,18 +83,18 @@ export function Handle({
 }
 
 Handle.propTypes = {
-  domain: PropTypes.array.isRequired,
-  handle: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired,
-  }).isRequired,
-  getHandleProps: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
+    domain: PropTypes.array.isRequired,
+    handle: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        percent: PropTypes.number.isRequired,
+    }).isRequired,
+    getHandleProps: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
 };
 
 Handle.defaultProps = {
-  disabled: false,
+    disabled: false,
 };
 
 // *******************************************************
@@ -131,18 +130,18 @@ export function KeyboardHandle({
 }
 
 KeyboardHandle.propTypes = {
-  domain: PropTypes.array.isRequired,
-  handle: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired,
-  }).isRequired,
-  getHandleProps: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
+    domain: PropTypes.array.isRequired,
+    handle: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        percent: PropTypes.number.isRequired,
+    }).isRequired,
+    getHandleProps: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
 };
 
 KeyboardHandle.defaultProps = {
-  disabled: false,
+    disabled: false,
 };
 
 // *******************************************************
@@ -168,22 +167,22 @@ export function Track({ source, target, getTrackProps, disabled }) {
 }
 
 Track.propTypes = {
-  source: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired,
-  }).isRequired,
-  target: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired,
-  }).isRequired,
-  getTrackProps: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
+    source: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        percent: PropTypes.number.isRequired,
+    }).isRequired,
+    target: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        percent: PropTypes.number.isRequired,
+    }).isRequired,
+    getTrackProps: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
 };
 
 Track.defaultProps = {
-  disabled: false,
+    disabled: false,
 };
 
 // *******************************************************
@@ -222,15 +221,15 @@ export function Tick({ tick, count, format }) {
 }
 
 Tick.propTypes = {
-  tick: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired,
-  }).isRequired,
-  count: PropTypes.number.isRequired,
-  format: PropTypes.func.isRequired,
+    tick: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        percent: PropTypes.number.isRequired,
+    }).isRequired,
+    count: PropTypes.number.isRequired,
+    format: PropTypes.func.isRequired,
 };
 
 Tick.defaultProps = {
-  format: (d) => d,
+    format: (d) => d,
 };
