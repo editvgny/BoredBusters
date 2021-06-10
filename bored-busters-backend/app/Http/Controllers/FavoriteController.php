@@ -67,74 +67,33 @@ class FavoriteController extends Controller {
         $maxPrice = $request->input('activityMaxPrice');
         $participants = $request->input('activityParticipants');
         $type = $request->input('activityType');
-
         if ($participants && $type) {
             return FavoriteActivity::where([
-                [
-                    "user_id",
-                    $userId],
-                [
-                    "price",
-                    '>=',
-                    $minPrice],
-                [
-                    "price",
-                    '<=',
-                    $maxPrice],
-                [
-                    "participants",
-                    $participants],
-                [
-                    "type",
-                    $type],])
+                ["user_id", $userId],
+                ["price", '>=', $minPrice],
+                ["price", '<=', $maxPrice],
+                ["participants", $participants],
+                ["type", $type],])
                 ->get();
         } else if ($type) {
             return FavoriteActivity::where([
-                [
-                    "user_id",
-                    $userId],
-                [
-                    "price",
-                    '>=',
-                    $minPrice],
-                [
-                    "price",
-                    '<=',
-                    $maxPrice],
-                [
-                    "type",
-                    $type],])
+                ["user_id", $userId],
+                ["price", '>=', $minPrice],
+                ["price", '<=', $maxPrice],
+                ["type", $type],])
                 ->get();
         } else if ($participants) {
             return FavoriteActivity::where([
-                [
-                    "user_id",
-                    $userId],
-                [
-                    "price",
-                    '>=',
-                    $minPrice],
-                [
-                    "price",
-                    '<=',
-                    $maxPrice],
-                [
-                    "participants",
-                    $participants],])
+                ["user_id", $userId],
+                ["price", '>=', $minPrice],
+                ["price", '<=', $maxPrice],
+                ["participants", $participants],])
                 ->get();
         } else {
             return FavoriteActivity::where([
-                [
-                    "user_id",
-                    $userId],
-                [
-                    "price",
-                    '>=',
-                    $minPrice],
-                [
-                    "price",
-                    '<=',
-                    $maxPrice],])
+                ["user_id", $userId],
+                ["price", '>=', $minPrice],
+                ["price", '<=', $maxPrice],])
                 ->get();
         }
     }
@@ -154,32 +113,28 @@ class FavoriteController extends Controller {
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function export(Request $request) {
+    public function export(Request $request): BinaryFileResponse {
         //Create excel sheet
         $spreadsheet = new Spreadsheet();
         $worksheet = new Worksheet($spreadsheet, 'Favorites data');
         $spreadsheet->addSheet($worksheet, 0);
         $spreadsheet->removeSheetByIndex(1);
-
         $this->setColumnTitles($worksheet);
         $this->setColumnAutoWidth($worksheet);
 
         //Get favorites data from database
         $favoritesData = $this->getFavorites($request->userId);
-
         $actualRowIndex = 2;
         foreach ($favoritesData as $data) {
             $rowData = [];
             $rowData[] = $data->activity;
             $rowData[] = $data->type;
             $rowData[] = $data->participants;
-
             if ($data->price) {
                 $rowData[] = $data->price;
             } else {
                 $rowData[] = '0';
             }
-
             if ($data->completed) {
                 $rowData[] = 'Completed';
             } else {
@@ -196,7 +151,6 @@ class FavoriteController extends Controller {
         $writer->save('favorites.xlsx');
         $file = public_path() . DIRECTORY_SEPARATOR . 'favorites.xlsx';
         $headers = ['Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
-//        $headers[] = $request->headers;
         return response()
             ->download($file, 'favorites.xlsx', $headers)
             ->deleteFileAfterSend(true);
@@ -206,12 +160,7 @@ class FavoriteController extends Controller {
      * @param Worksheet $worksheet
      */
     private function setColumnTitles(Worksheet $worksheet): void {
-        $titles = [
-            'Activity',
-            'Type',
-            'Participants',
-            'Price',
-            'Completed'];
+        $titles = ['Activity', 'Type', 'Participants', 'Price', 'Completed'];
         $worksheet->fromArray($titles, NULL, 'A1');
     }
 
