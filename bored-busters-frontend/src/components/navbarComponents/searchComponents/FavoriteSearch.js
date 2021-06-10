@@ -8,7 +8,7 @@ import {SlideValueContext} from "../../../contextComponents/SlideValueContext";
 import axios from 'axios';
 import FileDownload from 'js-file-download';
 
-function FavoriteSearch(props) {
+export default function FavoriteSearch(props) {
     const types = ["all", "education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]
     const [activityType, setActivityType] = useState("");
     const [inputParticipants, setParticipants] = useState("");
@@ -20,8 +20,8 @@ function FavoriteSearch(props) {
 
     const filterActivities = () => {
         const filterData = {
-            activityMinPrice: priceValues.min/10000,
-            activityMaxPrice: priceValues.max/10000,
+            activityMinPrice: priceValues.min / 10000,
+            activityMaxPrice: priceValues.max / 10000,
         }
         if (activityType) {
             filterData.activityType = activityType;
@@ -38,9 +38,8 @@ function FavoriteSearch(props) {
 
     const exportActivities = () => {
         const userId = sessionStorage.getItem('userId');
-        axios
-            .get(`http://127.0.0.1:8000/api/export-favorites/${userId}`,
-                {responseType: 'blob'})
+        axios.get(`http://127.0.0.1:8000/api/export-favorites/${userId}`,
+            {responseType: 'blob'})
             .then((response) => {
                     FileDownload(response.data, 'favorites.xlsx');
                 }
@@ -49,20 +48,17 @@ function FavoriteSearch(props) {
 
     return (
         <StyledFavoriteSearchContainer>
-
-            {/* ************* */}
             {/* Activity Type */}
             <StyledSelectContainer>Activity types:
-                <select className="option" onChange={
-                    e => e.target.value==="all" ? setActivityType("") : setActivityType(e.target.value)
-                }>
+                <select className="option"
+                        onChange={e => e.target.value === "all"
+                            ? setActivityType("")
+                            : setActivityType(e.target.value)}>
                     {types.map((type) => (
                         <option key={type} value={type}>{type}</option>
                     ))}
                 </select>
             </StyledSelectContainer>
-
-            {/* ********************** */}
             {/* Number of participants */}
             <StyledInputContainer>
                 Number of participants:
@@ -75,30 +71,19 @@ function FavoriteSearch(props) {
                     onFocus={clearFields}
                 />
             </StyledInputContainer>
-
-            {/* *********** */}
             {/* Price range */}
             <SliderBar className="slider"/>
-
-            {/* ************* */}
             {/* Search button */}
             <StyledGetButton style={{margin: "5px auto"}} onClick={filterActivities}>
                 Filter my favorites!
             </StyledGetButton>
-
-            {/* ************* */}
             {/* No result box */}
             {props.visibleFavorites.length === 0 ? (
                 <div className="no-result">No results were found</div>) : ("")};
-
-            {/* *************************** */}
             {/* Export all favorites button */}
             <StyledGetButton style={{margin: "5px auto"}} onClick={exportActivities}>
                 Export ALL my favorites!
             </StyledGetButton>
-
         </StyledFavoriteSearchContainer>
     );
 }
-
-export default FavoriteSearch;
