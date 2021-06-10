@@ -13,7 +13,7 @@ export default function Login() {
         if (!token) {
             console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
         }
-        axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
+        axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(() => {
             axios.post(`http://127.0.0.1:8000/api/login`, {
                     email: document.getElementById("email").value,
                     password: document.getElementById("password").value,
@@ -29,7 +29,7 @@ export default function Login() {
                     Cookies.set('token', response.data.token)
                     sessionStorage.setItem('userId', response.data.userId);
                 })
-                .catch(error => {
+                .catch(() => {
                     let errorDiv = document.getElementById("error");
                     errorDiv.innerHTML = "Invalid username or password!"
                 })
