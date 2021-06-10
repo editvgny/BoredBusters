@@ -5,7 +5,7 @@ import StyledSearchCard from "../styledComponents/StyledSearchCard";
 import StyledInstruction from "../styledComponents/StyledInstruction";
 import {FormGroup, Input, Button} from "../styledComponents/StyledForm";
 
-function Login() {
+export default function Login() {
 
     const loginUser = (e) => {
         e.preventDefault();
@@ -34,7 +34,6 @@ function Login() {
                     errorDiv.innerHTML = "Invalid username or password!"
                 })
         });
-
     }
 
     return (
@@ -53,5 +52,3 @@ function Login() {
         </div>
     );
 }
-
-export default Login;
