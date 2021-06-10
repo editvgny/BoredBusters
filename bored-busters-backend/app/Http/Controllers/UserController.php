@@ -39,13 +39,13 @@ class UserController extends Controller {
                 'success' => false,
                 'error' => $validator->messages()], 422);
         }
-        $username = $request->username;
+        $user_name = $request->username;
         $email = $request->email;
         $password = $request->password1;
         return response([
             'status' => 201,
             User::create([
-                'name' => $username,
+                'name' => $user_name,
                 'email' => $email,
                 'password' => Hash::make($password)])], 201);
     }
